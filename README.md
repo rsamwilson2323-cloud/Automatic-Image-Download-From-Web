@@ -121,6 +121,7 @@ Here are some ideas you might add later:
 You can include this in your repo:
 
 bing-image-downloader==1.1.1
+
 🧑‍💻 Author
 
 Sam Wilson
