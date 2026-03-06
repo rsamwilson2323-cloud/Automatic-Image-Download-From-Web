@@ -2,6 +2,7 @@
 
 A Python automation tool that quickly downloads images from Bing based on a search term, organizes them into a structured dataset, prevents duplicates, and continues numbering automatically — ideal for building image datasets for machine learning, projects, and research.
 
+
 🔥 Features
 
 🔎 Search and download images by keyword
