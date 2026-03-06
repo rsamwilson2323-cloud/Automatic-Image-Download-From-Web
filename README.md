@@ -18,6 +18,7 @@ A Python automation tool that quickly downloads images from Bing based on a sear
 
 💻 Works with Python 3.8+ on Windows, macOS, Linux
 
+
 🗂 Repository Structure
 Automatic-Image-Download-From-Web/
 │
