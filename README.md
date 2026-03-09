@@ -1,133 +1,177 @@
-📸 Automatic Image Download From Web
+# 📸 Automatic Image Download From Web
 
-A Python automation tool that quickly downloads images from Bing based on a search term, organizes them into a structured dataset, prevents duplicates, and continues numbering automatically — ideal for building image datasets for machine learning, projects, and research.
+Automatic Image Download From Web is a Python automation tool that **downloads images from Bing based on a search keyword**, organizes them into structured folders, and prevents duplicate downloads.
 
+This tool is useful for **creating image datasets for machine learning, research, and computer vision projects**.
 
-🔥 Features
+---
 
-🔎 Search and download images by keyword
+# ✨ Features
 
-📁 Automatically creates an image bank folder
+🔎 **Search and download images by keyword**
 
-📂 Creates a separate folder for each keyword
+📁 Automatically creates an **image bank folder**
 
-🔢 Automatically continues numbering (Image_1, Image_2, etc.)
+📂 Creates a **separate folder for each keyword**
 
-🚫 Avoids duplicate images using MD5 hashing
+🔢 Automatically continues numbering
+`Image_1, Image_2, Image_3 ...`
 
-⚡ Fast batch downloading
+🚫 Prevents duplicate images using **MD5 hashing**
 
-💻 Works with Python 3.8+ on Windows, macOS, Linux
+⚡ Fast **batch image downloading**
 
+💻 Works with **Python 3.8+ on Windows, macOS, and Linux**
 
-🗂 Repository Structure
-Automatic-Image-Download-From-Web/
+---
+
+# 📂 Project Structure
+
+```id="x1bnkp"
+Automatic-Image-Download-From-Web
 │
 ├── automatic image download from web.py
 ├── README.md
 ├── requirements.txt
 │
-└── image bank/
-      ├── python/
+└── image bank
+      ├── python
       │     ├── Image_1.jpg
       │     ├── Image_2.jpg
-      │     └── ......
-      └── dogs/
+      │     └── ...
+      │
+      └── dogs
             ├── Image_1.png
             ├── Image_2.png
-            └── ......
-🧰 Requirements
+            └── ...
+```
 
-Install the required library:
+---
 
-pip install bing-image-downloader==1.1.1
-Library	Version
-Python	3.8+
-bing-image-downloader	1.1.1
+# ⚙️ Installation
 
-⚠️ Version 1.1.1 of bing-image-downloader is recommended to avoid the known Path.isdir bug.
+## 1️⃣ Clone the Repository
 
-▶️ How to Use
-
-Clone this repository:
-
+```id="vfwx2s"
 git clone https://github.com/rsamwilson2323-cloud/Automatic-Image-Download-From-Web.git
-
-Navigate into the project folder:
-
 cd Automatic-Image-Download-From-Web
+```
 
-Install required dependency:
+---
 
-pip install bing-image-downloader==1.1.1
+## 2️⃣ Install Dependencies
+
+```id="mdqkso"
+pip install -r requirements.txt
+```
+
+---
+
+# 📦 Requirements
+
+```id="08o1ql"
+bing-image-downloader==1.1.1
+```
+
+⚠️ Version **1.1.1** is recommended to avoid the known **Path.isdir bug**.
+
+---
+
+# ▶️ Usage
 
 Run the script:
 
+```id="izp9bt"
 python "automatic image download from web.py"
+```
 
-Follow the prompts:
+The program will ask for:
 
+```
 Enter the image name to search: cats
 Enter the number of images to download: 10
+```
 
-Check your images in:
+Images will be saved in:
 
+```
 image bank/cats/
-🧠 How It Works
+```
 
-The script:
+---
 
-Prompts the user for a search keyword and number of images.
+# 🧠 How It Works
 
-Creates the image bank directory (next to the script).
+1️⃣ The script asks for a **search keyword** and number of images.
+2️⃣ It creates the **image bank folder** if it does not exist.
+3️⃣ A **subfolder for the keyword** is created automatically.
+4️⃣ Images are downloaded using **bing-image-downloader**.
+5️⃣ **MD5 hashing** is used to detect and skip duplicate images.
+6️⃣ Images are renamed sequentially.
 
-Creates a subfolder for the keyword.
+---
 
-Downloads images using bing-image-downloader.
+# 📌 Example Output
 
-Avoids duplicate images by comparing MD5 hashes.
-
-Renames images sequentially — preserving previous downloads.
-
-📌 Example Output
+```
 Enter the image name to search: python
 Enter the number of images to download: 5
 
 Download completed
 Folder : image bank/python
 Images : Image_1 to Image_5
+```
 
-If you run again with “python” and download 4 more:
+If you run again:
 
+```
+Enter the image name to search: python
+Enter the number of images to download: 4
+```
+
+Result:
+
+```
 Images : Image_6 to Image_9
-🛡 Duplicate Handling
+```
 
-The script uses md5 hashing to detect and skip images that are already downloaded, ensuring only unique images are added.
+---
 
-📈 Future Improvements
+# 🛡 Duplicate Handling
 
-Here are some ideas you might add later:
+The script calculates **MD5 hashes** of downloaded images to detect duplicates and avoid saving the same image multiple times.
 
-🔹 Multi-threaded downloading
+This ensures that the dataset contains **only unique images**.
 
-🔹 GUI version (Tkinter / PyQt)
+---
 
-🔹 Resize and format conversions
+# 🚀 Future Improvements
 
-🔹 Integrated dataset export (CSV / labels)
+Possible improvements for the project:
 
-🔹 Support for other search engines
+🔹 Multi-threaded downloading for faster speed
+🔹 GUI version using **Tkinter or PyQt**
+🔹 Image resizing and format conversion
+🔹 Dataset export with **CSV labels**
+🔹 Support for additional search engines
 
-🧾 requirements.txt
+---
 
-You can include this in your repo:
+# 👨‍💻 Author
 
-bing-image-downloader==1.1.1
+**Sam Wilson**
 
-🧑‍💻 Author
+🌐 GitHub
+https://github.com/rsamwilson2323-cloud
 
-Sam Wilson
+💼 LinkedIn
+https://www.linkedin.com/in/sam-wilson-14b554385
 
-🔗 GitHub: https://github.com/rsamwilson2323-cloud
+📧 Email
+[rsamwilson2323@gmail.com](mailto:rsamwilson2323@gmail.com)
 
-🔗 LinkedIn: https://www.linkedin.com/in/sam-wilson-14b554385
+---
+
+# 📜 License
+
+This project is licensed under the **MIT License**.
