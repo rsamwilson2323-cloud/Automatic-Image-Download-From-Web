@@ -1,10 +1,5 @@
-# ===================== FIX FOR LIBRARY BUG =====================
-import pathlib
-if not hasattr(pathlib.Path, "isdir"):
-    pathlib.Path.isdir = pathlib.Path.is_dir
-
 # ===================== IMPORTS =====================
-from bing_image_downloader import downloader
+from icrawler.builtin import BingImageCrawler
 import os
 import re
 import shutil
@@ -51,59 +46,54 @@ for file in existing_files:
 
 count = start_num
 added = 0
+offset = 0          # moves forward each round so new results are fetched
+max_rounds = 5      # safety limit
 
 print("\nDownloading images... Please wait 🔄")
 
 # ===================== DOWNLOAD LOOP =====================
-while added < quantity:
+for _ in range(max_rounds):
+
+    if added >= quantity:
+        break
 
     temp_dir = tempfile.mkdtemp()
+    needed = quantity - added
+    batch = needed + 5   # ask for a few extra to cover duplicates
 
-    # Small fast batch download
-    downloader.download(
-        search_name,
-        limit=quantity,   # Only small batch
-        output_dir=temp_dir,
-        adult_filter_off=True,
-        force_replace=True,
-        timeout=60,
-        verbose=False
+    crawler = BingImageCrawler(
+        storage={"root_dir": temp_dir},
+        downloader_threads=4
     )
+    crawler.crawl(keyword=search_name, max_num=batch, offset=offset)
+    offset += batch
 
-    downloaded_folder = os.path.join(temp_dir, search_name)
+    for file in sorted(os.listdir(temp_dir)):
 
-    if os.path.exists(downloaded_folder):
+        if added >= quantity:
+            break
 
-        for file in os.listdir(downloaded_folder):
+        src = os.path.join(temp_dir, file)
 
-            if added >= quantity:
-                break
+        if not os.path.isfile(src):
+            continue
 
-            src = os.path.join(downloaded_folder, file)
+        file_hash = get_hash(src)
 
-            if not os.path.isfile(src):
-                continue
+        # Skip duplicate images
+        if file_hash in existing_hashes:
+            continue
 
-            file_hash = get_hash(src)
+        ext = os.path.splitext(file)[1]
+        new_name = f"Image_{count}{ext}"
 
-            # Skip duplicate images
-            if file_hash in existing_hashes:
-                continue
+        shutil.move(src, os.path.join(user_folder, new_name))
 
-            ext = os.path.splitext(file)[1]
-            new_name = f"Image_{count}{ext}"
+        existing_hashes.add(file_hash)
+        count += 1
+        added += 1
 
-            shutil.move(src, os.path.join(user_folder, new_name))
-
-            existing_hashes.add(file_hash)
-            count += 1
-            added += 1
-
-    shutil.rmtree(temp_dir)
-
-    # Safety break (avoid infinite loop if Bing only returns duplicates)
-    if added == 0:
-        break
+    shutil.rmtree(temp_dir, ignore_errors=True)
 
 # ===================== DONE =====================
 print("\n✅ Download completed")
